@@ -1,0 +1,33 @@
+---
+title: "Runtime and Ratings"
+jupyter: python3
+---
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+```
+
+## Runtime and Ratings
+
+@fig-runtime-rating shows the relationship between film runtime and IMDb rating.
+
+```{python}
+#| echo: true
+#| fig-cap: "Film runtime compared with IMDb rating"
+#| label: fig-runtime-rating
+
+plt.scatter(films["runtime_min"], films["imdb_rating"])
+plt.xlabel("Runtime (minutes)")
+plt.ylabel("IMDb Rating")
+plt.show()
+```
+
+## Mean Rating by Decade
+
+```{python}
+films["decade"] = films["year"] // 10 * 10
+films.groupby("decade")["imdb_rating"].mean().round(2)
+```
